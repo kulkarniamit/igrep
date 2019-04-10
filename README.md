@@ -4,7 +4,9 @@ A small tool to find a string in a directory interactively
 ## Why?
 Finding some string in a set of files/directories is a common task. It's trivial to achieve everything using recursive `grep`.
 In fact, this tool uses the same old dependable `grep` tool. However, most of the times we search these words in order
-to see the context in which they are being used (not a single line of context). Most of the times, I ended up copy-pasting the filename and opening the file and searching for the word. If I am interested in the word appearing in 4 files, 
+to see the context in which they are being used (not a single line of context). 
+
+Most of the times, I ended up copy-pasting the filename and opening the file and searching for the word. If I am interested in the word appearing in 4 files, 
 I ended up opening 4 files by copy-pasting the path and searching for the word within the file (using vim search). So, why not automate the task when we know what repeats! That's all this tool does but interactively.
 Nothing more nothing less. It's the same old `grep` with a wrapper.
 
@@ -13,13 +15,13 @@ Nothing more nothing less. It's the same old `grep` with a wrapper.
 #### Tool usage
 
 * Basic usage
-  ![Using igrep](/screenshots/igrep_usage.png?raw=true "Using igrep")
+    ![Using igrep](/screenshots/igrep_usage.png?raw=true "Using igrep")
 
 * Results
-  ![igrep result](/screenshots/igrep_usage_result.png?raw=true "Result of igrep")
+    ![igrep result](/screenshots/igrep_usage_result.png?raw=true "Result of igrep")
 
 * Usage checks
-  ![Wrong igrep parameters](/screenshots/igrep_wrong_usage.png?raw=true "Providing wrong igrep parameters")
+    ![Wrong igrep parameters](/screenshots/igrep_wrong_usage.png?raw=true "Providing wrong igrep parameters")
 
 #### Options
 
