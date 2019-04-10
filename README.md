@@ -59,6 +59,9 @@ $ chmod +x /home<username>/Downloads/igrep/igrep
 $ export PATH:$PATH:/home/<username>/Downloads/igrep
 ```
 
+## FYI
+The tool excludes `.svn`, `.git`, `BUILD` directories and `*.swp` and `*.o` files from search results by default. Additional option to exclude directories will be added in future
+
 ## FAQ
 
 **[Q]** But we already have these tools, why reinvent the wheel?<br/>
