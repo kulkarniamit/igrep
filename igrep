@@ -1,0 +1,132 @@
+#!/usr/bin/env python3
+import subprocess
+import sys
+import argparse
+
+options = []
+results = []
+
+
+class Bcolors:
+    HEADER = '\033[95m'
+    BEIGE = '\33[36m'
+    LBLUE = '\033[94m'
+    DBLUE = '\33[34m'
+    LGREEN = '\033[92m'
+    DGREEN = '\33[32m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    DRED = '\33[31m'
+    CYELLOW = '\33[33m'
+    CVIOLET = '\33[35m'
+    CWHITE = '\33[37m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+    ENDC = '\033[0m'
+
+
+def execute_grep() -> None:
+    """ Execute grep command based on chosen options """
+    global results
+    global whole_word
+    global ignore_case
+    global search_string
+    case_option = "-i" if ignore_case else ""
+    search_option = "\<" + search_string + "\>" if whole_word else search_string
+    command = ["grep",
+               "-I",
+               "-n",
+               "--exclude-dir=.svn",
+               "--exclude-dir=.git",
+               "--exclude-dir=BUILD",
+               "--exclude=*.swp",
+               "--exclude=*.o",
+               "-r",
+               search_option,
+               search_directory]
+    if ignore_case:
+        command.insert(1, "-i")
+    try:
+        results = subprocess.check_output(command)\
+                    .decode("utf-8")\
+                    .split("\n")[:-1]
+    except subprocess.CalledProcessError as e:
+        print(Bcolors.FAIL + search_string + " not found" + Bcolors.ENDC)
+        exit(e.returncode)
+
+
+def print_results() -> None:
+    """ Loop through grep results and print with style """
+    counter = 0
+    global len_search_string
+    for result in results:
+        counter += 1
+        options.append(result.split(":", 2)[:-1])
+        file_name, line_number, search_match = result.split(":", 2)
+        search_match = search_match.strip()
+
+        # Since we receive case insensitive results, find should look for
+        # everything
+        search_string_index = search_match.lower().find(search_string.lower())
+        print(Bcolors.BOLD + "[" + str(counter) + "]" + Bcolors.ENDC +
+              " " +
+              Bcolors.CVIOLET + file_name + Bcolors.ENDC +
+              " : " +
+              Bcolors.LGREEN + line_number + Bcolors.ENDC +
+              " :\t" +
+              search_match[:search_string_index] +
+              # Highlight the search term
+              Bcolors.DRED+search_string+Bcolors.ENDC +
+              search_match[search_string_index+len_search_string:])
+
+
+def open_file() -> None:
+    """Based on chosen input, open the file using vim at matching line number
+    """
+
+    while(1):
+        chosen = input("Enter file number or type 'q' to quit: ")
+        if chosen == 'q':
+            exit(0)
+        try:
+            chosen = int(chosen)
+        except ValueError:
+            # Number not entered
+            print("Please enter a valid positive number")
+            continue
+
+        if chosen > len(options) or chosen < 1:
+            # Invalid number chosen
+            print("Please enter a number in the range 1 - "+str(len(options)))
+            continue
+        else:
+            chosen_index = chosen - 1
+
+        # Open file for viewing at required line number
+        subprocess.call(["vim", options[chosen_index][0], "+" +
+                        options[chosen_index][1]])
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    requiredNamed = parser.add_argument_group('required named arguments')
+    requiredNamed.add_argument('-s', '--search-term', help='Term to search',
+                               required=True)
+    requiredNamed.add_argument('-d', '--directory', help='Directory to search',
+                               required=True)
+    parser.add_argument('-w', '--whole-word', help='Search whole words only',
+                        action='store_true', required=False)
+    parser.add_argument('-i', '--ignore-case', help='Ignore case in search',
+                        action='store_true', required=False)
+    parser.add_argument('-v', '--version', action='version',
+                        version='%(prog)s 0.1')
+    args = parser.parse_args()
+    search_string = args.search_term
+    search_directory = args.directory
+    whole_word = args.whole_word
+    ignore_case = args.ignore_case
+    len_search_string = len(search_string)
+
+    execute_grep()
+    print_results()
+    open_file()
