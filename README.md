@@ -14,14 +14,14 @@ Nothing more nothing less. It's the same old `grep` with a wrapper.
 
 #### Tool usage
 
-* Basic usage
-    ![Using igrep](/screenshots/igrep_usage.png?raw=true "Using igrep")
+**Basic usage**<br/>
+![Using igrep](/screenshots/igrep_usage.png?raw=true "Using igrep")
 
-* Results
-    ![igrep result](/screenshots/igrep_usage_result.png?raw=true "Result of igrep")
+**Results**<br/>
+![igrep result](/screenshots/igrep_usage_result.png?raw=true "Result of igrep")
 
-* Usage checks
-    ![Wrong igrep parameters](/screenshots/igrep_wrong_usage.png?raw=true "Providing wrong igrep parameters")
+**Usage checks**<br/>
+![Wrong igrep parameters](/screenshots/igrep_wrong_usage.png?raw=true "Providing wrong igrep parameters")
 
 #### Options
 
