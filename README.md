@@ -17,8 +17,6 @@ Nothing more nothing less. It's the same old `grep` with a wrapper.
 
 ## How to use?
 
-#### Tool usage
-
 **Basic usage**<br/>
 ![Using igrep](/screenshots/igrep_usage.png?raw=true "Using igrep")
 
