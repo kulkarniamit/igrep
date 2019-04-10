@@ -1,6 +1,11 @@
 # igrep (Interactive grep)
 A small tool to find a string in a directory interactively
 
+## Prerequisites
+* Python 3
+* Linux
+* vim
+
 ## Why?
 Finding some string in a set of files/directories is a common task. It's trivial to achieve everything using recursive `grep`.
 In fact, this tool uses the same old dependable `grep` tool. However, most of the times we search these words in order
