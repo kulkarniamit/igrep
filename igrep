@@ -112,8 +112,7 @@ if __name__ == "__main__":
     requiredNamed = parser.add_argument_group('required named arguments')
     requiredNamed.add_argument('-s', '--search-term', help='Term to search',
                                required=True)
-    requiredNamed.add_argument('-d', '--directory', help='Directory to search',
-                               required=True)
+    parser.add_argument('-d', '--directory', help='Directory to search', required=False)
     parser.add_argument('-w', '--whole-word', help='Search whole words only',
                         action='store_true', required=False)
     parser.add_argument('-i', '--ignore-case', help='Ignore case in search',
@@ -122,7 +121,7 @@ if __name__ == "__main__":
                         version='%(prog)s 0.1')
     args = parser.parse_args()
     search_string = args.search_term
-    search_directory = args.directory
+    search_directory = args.directory if args.directory else "."
     whole_word = args.whole_word
     ignore_case = args.ignore_case
     len_search_string = len(search_string)
