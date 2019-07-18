@@ -24,6 +24,10 @@ class Bcolors:
     UNDERLINE = '\033[4m'
     ENDC = '\033[0m'
 
+def get_allowed_extensions(extensions):
+    option = "--include=*."
+    extensions_list = extensions.split(",")
+    return list(map(lambda x: "--include=*."+x, extensions_list))
 
 def execute_grep() -> None:
     """ Execute grep command based on chosen options """
@@ -31,6 +35,7 @@ def execute_grep() -> None:
     global whole_word
     global ignore_case
     global search_string
+    global include_extensions
     case_option = "-i" if ignore_case else ""
     search_option = "\<" + search_string + "\>" if whole_word else search_string
     command = ["grep",
@@ -44,6 +49,9 @@ def execute_grep() -> None:
                "-r",
                search_option,
                search_directory]
+
+    # List shouldn't be embedded, don't use insert()
+    if include_extensions: command[1:1] = get_allowed_extensions(include_extensions)
     if ignore_case:
         command.insert(1, "-i")
     try:
@@ -112,6 +120,7 @@ if __name__ == "__main__":
     requiredNamed = parser.add_argument_group('required named arguments')
     requiredNamed.add_argument('-s', '--search-term', help='Term to search',
                                required=True)
+    parser.add_argument('-I', '--include', help='Comma separated file extensions to include', required=False)
     parser.add_argument('-d', '--directory', help='Directory to search', required=False)
     parser.add_argument('-w', '--whole-word', help='Search whole words only',
                         action='store_true', required=False)
@@ -124,6 +133,7 @@ if __name__ == "__main__":
     search_directory = args.directory if args.directory else "."
     whole_word = args.whole_word
     ignore_case = args.ignore_case
+    include_extensions = args.include
     len_search_string = len(search_string)
 
     execute_grep()

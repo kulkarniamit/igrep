@@ -33,6 +33,8 @@ $ ./igrep --help
 usage: igrep [-h] -s SEARCH_TERM -d DIRECTORY [-w] [-i] [-v]
 
 optional arguments:
+  -I INCLUDE, --include INCLUDE
+                        Comma separated file extensions to include
   -h, --help            show this help message and exit
   -w, --whole-word      Search whole words only
   -i, --ignore-case     Ignore case in search
@@ -43,6 +45,20 @@ required named arguments:
                         Term to search
   -d DIRECTORY, --directory DIRECTORY
                         Directory to search
+```
+
+#### Examples
+
+```bash
+# Search in files with extensions '.c' or '.h' or '.cpp'
+$ ./igrep -I "c,h,cpp" -s search_term -d search_directory
+
+# Search a term ignoring the case
+$ ./igrep -i -s search_term -d search_directory
+
+# Search a term where the whole term appears
+$ ./igrep -w -s search_term -d search_directory
+
 ```
 
 ## Installation
