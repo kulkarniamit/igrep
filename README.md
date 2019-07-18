@@ -30,11 +30,13 @@ Nothing more nothing less. It's the same old `grep` with a wrapper.
 
 ```bash
 $ ./igrep --help
-usage: igrep [-h] -s SEARCH_TERM -d DIRECTORY [-w] [-i] [-v]
+usage: igrep [-h] -s SEARCH_TERM [-I INCLUDE] [-d DIRECTORY] [-w] [-i] [-v]
 
 optional arguments:
   -I INCLUDE, --include INCLUDE
                         Comma separated file extensions to include
+  -d DIRECTORY, --directory DIRECTORY
+                        Directory to search                        
   -h, --help            show this help message and exit
   -w, --whole-word      Search whole words only
   -i, --ignore-case     Ignore case in search
@@ -43,8 +45,6 @@ optional arguments:
 required named arguments:
   -s SEARCH_TERM, --search-term SEARCH_TERM
                         Term to search
-  -d DIRECTORY, --directory DIRECTORY
-                        Directory to search
 ```
 
 #### Examples
@@ -52,6 +52,10 @@ required named arguments:
 ```bash
 # Search in files with extensions '.c' or '.h' or '.cpp'
 $ ./igrep -I "c,h,cpp" -s search_term -d search_directory
+
+# Search a term in current directory
+# Default search directory is current directory
+$ ./igrep -s search_term
 
 # Search a term ignoring the case
 $ ./igrep -i -s search_term -d search_directory
