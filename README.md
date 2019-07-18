@@ -89,10 +89,10 @@ The tool excludes `.svn`, `.git`, `BUILD` directories and `*.swp` and `*.o` file
 
 **[Q]** I can accomplish the same using the readily available `find`, `grep`, `xyz` etc.
 There was no need to create this. It's redundant, bulky and not useful<br/>
-**[A]** Technically, that's not a question. So, I'll pass. Oh, BTW it's useful to me
+**[A]** It's useful to me
 
 **[Q]** There's already another `igrep` repository which does much more<br/>
-**[A]** Again, that's not a question. Feel free to use it though
+**[A]** That's not a question. Feel free to use it though
 
 **[Q]** Why don't you upload it to PyPi?<br/>
 **[A]** Let's not make this whole thing unnecessarily bulky. Just download the script and use it
